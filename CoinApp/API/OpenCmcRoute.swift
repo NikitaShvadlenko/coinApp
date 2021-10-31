@@ -46,7 +46,7 @@ extension OpenCmcRoute: TargetType {
         switch self {
         case .latest:
             let headers: [String : String] = [
-                "X-CMC_PRO_API_KEY": "3eec2ab0-3d6b-4cb2-b679-94776e1bf9fb"
+                "X-CMC_PRO_API_KEY": "YOUR-API-KEY-HERE"
             ]
             return headers
         }
