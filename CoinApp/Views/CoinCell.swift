@@ -19,14 +19,12 @@ class CoinCell: UITableViewCell {
     private lazy var coinNameLabel: UILabel = {
         let coinLabel = UILabel()
         coinLabel.textColor = .black
-        coinLabel.text = "LALALALLA"
         return coinLabel
     }()
     
     private lazy var coinPriceLabel: UILabel = {
         let price = UILabel()
         price.textColor = .red
-        price.text = "1000000000"
         price.font.withSize(10.0)
         price.textAlignment = .left
         return price
