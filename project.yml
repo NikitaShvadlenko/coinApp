@@ -1,0 +1,43 @@
+name: "CoinApp"
+
+settings:
+  base:
+    DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+    ENABLE_BITCODE: NO
+    CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED: YES
+    CLANG_ANALYZER_LOCALIZABILITY_EMPTY_CONTEXT: YES
+    CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER: YES
+
+options:
+  deploymentTarget:
+    iOS: 13.0
+
+packages:
+  Moya:
+    url: https://github.com/Moya/Moya
+    from: 15.0.0
+  SnapKit:
+    url: https://github.com/SnapKit/SnapKit
+    from: 5.0.1
+targets:
+  AbsolutelyNewNasa:
+    platform: iOS
+    type: application
+    sources:
+    settings:
+      base:
+        TARGETED_DEVICE_FAMILY: 1
+        DISPLAY_NAME: "CoinApp"
+        PRODUCT_BUNDLE_IDENTIFIER: shvad.CoinApp
+        CODE_SIGN_STYLE: Automatic
+    dependencies:
+      - package: Moya
+      - package: SnapKit
+preBuildScripts:
+    - name: "Swiftlint"
+      script: |
+              if which swiftlint >/dev/null; then
+                swiftlint
+              else
+                echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
+              fi
