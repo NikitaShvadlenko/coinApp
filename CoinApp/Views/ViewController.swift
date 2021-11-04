@@ -8,11 +8,13 @@
 import UIKit
 import SnapKit
 import Moya
+
 class ViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let table = UITableView()
         table.backgroundColor = .blue
+        table.rowHeight = UITableView.automaticDimension
         table.dataSource = self
         table.estimatedRowHeight = 100
         table.register(CoinCell.self, forCellReuseIdentifier: "\(CoinCell.self)")
@@ -50,9 +52,9 @@ extension ViewController: UITableViewDataSource {
         return safeCell
     }
 }
-//MARK: - Fetch Coin Info Function
-extension ViewController {
-    func fetchCoinInfo() {
+//MARK: - Private Methods
+private extension ViewController {
+     func fetchCoinInfo() {
         coinProvider.request(.latest) { [weak self] result in
             switch result {
             case let .success(response):

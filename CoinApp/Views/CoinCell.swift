@@ -9,11 +9,10 @@ import UIKit
 
 class CoinCell: UITableViewCell {
    
-    private lazy var coinView: UIStackView = {
-        let coinView = UIStackView()
-        coinView.alignment = .center
-        coinView.axis = .horizontal
-        return coinView
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView.init(arrangedSubviews: [coinNameLabel,coinPriceLabel])
+        stackView.axis = .horizontal
+        return stackView
     }()
     
     private lazy var coinNameLabel: UILabel = {
@@ -25,20 +24,19 @@ class CoinCell: UITableViewCell {
     private lazy var coinPriceLabel: UILabel = {
         let price = UILabel()
         price.textColor = .red
-        price.font.withSize(10.0)
-        price.textAlignment = .left
+        price.font = coinNameLabel.font
+        price.textAlignment = .right
         return price
     }()
     
     func setupView() {
-        contentView.addSubview(coinView)
-        coinView.addArrangedSubview(coinNameLabel)
-        coinView.addArrangedSubview(coinPriceLabel)
-        coinView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
+        contentView.addSubview(stackView)
+        stackView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(8)
             make.bottom.top.equalToSuperview()
         }
     }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
@@ -51,7 +49,7 @@ class CoinCell: UITableViewCell {
 //MARK: - PublicMethod
 extension CoinCell {
     func configure(coinInfo: CoinInfo) {
-        let coinPrice = String(format: "%.4f", coinInfo.quote["USD"]?.price as! CVarArg)
+        let coinPrice = String(format: "%.4f", coinInfo.quote["USD"]?.price ?? 0)
         let coinName = coinInfo.name
         
         coinPriceLabel.text = coinPrice
